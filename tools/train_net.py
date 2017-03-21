@@ -129,7 +129,8 @@ if __name__ == '__main__':
 
     prototxt_file=args.solver
     n=caffe_pb2.NetParameter()
-    text_format.Merge(open(prototxt_file).read(), n)
+    print prototxt_file
+    n=text_format.Merge(open(prototxt_file).read(), n)
     n.layer[-2].inner_product_param.num_output
     text_format.MessageToString(n)
 
