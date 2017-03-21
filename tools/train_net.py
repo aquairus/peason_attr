@@ -118,6 +118,8 @@ if __name__ == '__main__':
         db = PETA(os.path.join('data', 'dataset',  args.db), args.par_set_id)
 
 #   here
+    start=args.start
+    end=args.end
     num_attr=end-start
     cfg.NUM_ATTR = num_attr
     db.label_weight=db.label_weight[start:end]

@@ -3,7 +3,10 @@
 # stack
 
 训练
-train_vgg   wpal_net.sh train_net.py  wpal_net/train.py
+train_vgg   wpal_net.sh  train_net.py                   wpal_net/train.py    layer
+			             change weight&label			snapshot			cfg.NUM_ATTR=9
+										               prototxt   			db
+
 
 测试
 test_vgg  test_net.py  wpal_net/test.py
