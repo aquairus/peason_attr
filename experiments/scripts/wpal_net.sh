@@ -22,7 +22,7 @@ END=$7
 
 array=( $@ )
 len=${#array[@]}
-EXTRA_ARGS=${array[@]:5:$len}
+EXTRA_ARGS=${array[@]:7:$len}
 EXTRA_ARGS_SLUG=${EXTRA_ARGS// /_}
 
 ITERS=50000
