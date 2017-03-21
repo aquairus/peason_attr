@@ -127,10 +127,14 @@ if __name__ == '__main__':
     args.snapshot_path=args.snapshot_path+"/{}_{}".format(start,end)
 
 
-    prototxt_file=args.solver
+    solver_file=args.solver
+    solver=caffe_pb2.SolverParameter()
+    text_format.Merge(open(solver_file).read(), solver)
+
+
+    net_file=solver.net
     n=caffe_pb2.NetParameter()
-    print prototxt_file
-    n=text_format.Merge(open(prototxt_file).read(), n)
+    text_format.Merge(open(net_file).read(), n)
     n.layer[-2].inner_product_param.num_output
     text_format.MessageToString(n)
 
@@ -138,11 +142,18 @@ if __name__ == '__main__':
         os.makedirs(args.solver+"_dir")
     except:
         pass
-    new_file=  args.solver+"_dir/{}_{}".format(start,end)
 
+
+    new_file=  net_file+"_dir/{}_{}".format(start,end)
     with open(new_file,'w+') as  new_prototxt_file:
         prototxt_file.write(text_format.MessageToString(n))
-    args.solver=new_file
+
+    solver.net=new_file
+    new_solver=  args.solver+"_dir/{}_{}".format(start,end)
+    with open(new_solver,'w+') as  new_prototxt_file:
+        prototxt_file.write(text_format.MessageToString(n))
+
+    args.solver=new_solver
 #
     print 'Output will be saved to `{:s}`'.format(args.output_dir)
     try:
