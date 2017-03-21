@@ -17,6 +17,8 @@ NET_lc=${NET,,}
 WEIGHTS=$3
 DB=$4
 DB_SET=$5
+START=$6
+END=$7
 
 array=( $@ )
 len=${#array[@]}
@@ -34,6 +36,8 @@ time ./tools/train_net.py --gpu ${GPU_ID} \
   --weights ${WEIGHTS} \
   --db ${DB} \
   --setid ${DB_SET} \
+  --start ${START}\
+  --end ${END} \
   --outputdir data/snapshots/${NET}/${DB_SET} \
   --iters ${ITERS} \
   ${EXTRA_ARGS}

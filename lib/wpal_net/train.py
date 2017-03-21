@@ -58,7 +58,7 @@ class SolverWrapper(object):
             snapshot_path = snapshot_path.split('/')[-1]
             if snapshot_path.startswith(self._snapshot_prefix):
                 print 'Warning! Existing snapshots may be overriden by new snapshots!'
- 
+
         self._db = db
         self._solver.net.layers[0].set_db(self._db, do_flip)
 
@@ -70,7 +70,7 @@ class SolverWrapper(object):
         filepath = os.path.join(self._output_dir, filename)
 
         print 'Attempting to save snapshot to \"{}\"'.format(filepath)
-        if not os.path.exists(self._output_dir):        
+        if not os.path.exists(self._output_dir):
             os.makedirs(self._output_dir)
         net.save(str(filepath))
         print 'Wrote snapshot to: {:s}'.format(filepath)

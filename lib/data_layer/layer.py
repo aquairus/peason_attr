@@ -68,8 +68,8 @@ class DataLayer(caffe.Layer):
         top[idx].reshape(cfg.TRAIN.BATCH_SIZE, 3, max(cfg.TRAIN.SCALES), max(cfg.TRAIN.SCALES))
         self._name_to_top_map['data'] = idx
         idx += 1
-	cfg.NUM_ATTR=9
-#	from time import sleep	
+	# cfg.NUM_ATTR=9
+#	from time import sleep
 #	print cfg.NUM_ATTR
 #	sleep(10)
         top[idx].reshape(cfg.TRAIN.BATCH_SIZE, cfg.NUM_ATTR)
@@ -78,7 +78,7 @@ class DataLayer(caffe.Layer):
 
         top[idx].reshape(cfg.TRAIN.BATCH_SIZE, cfg.NUM_ATTR)
         self._name_to_top_map['weight'] = idx
-        idx += 1       
+        idx += 1
 
         print 'DataLayer: name_to_top:', self._name_to_top_map
         assert len(top) == len(self._name_to_top_map)
@@ -114,7 +114,8 @@ class BlobFetcher(Process):
         self._cur = 0
         self._do_flip = do_flip
         self._train_ind = self._db.train_ind
-        self._weight = db.label_weight[:9]
+        self._weight = db.label_weight
+        # [:9]
 
         self._shuffle_train_inds()
 
@@ -145,7 +146,7 @@ class BlobFetcher(Process):
                  for i in minibatch_inds]
             minibatch_labels = \
                 [self._db.labels[self._db.train_ind[
-                     i if i < len(self._db.train_ind) else i - len(self._db.train_ind)]][:9]
+                     i if i < len(self._db.train_ind) else i - len(self._db.train_ind)]]    #[:9]
                  for i in minibatch_inds]
             minibatch_flip = \
                 [0 if i < len(self._db.train_ind) else 1

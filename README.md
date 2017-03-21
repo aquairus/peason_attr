@@ -1,80 +1,150 @@
-# Weakly-supervised Pedestrian Attribute Localization Network
+# my caffe net for pedestrian attribute
 
-By Ken Yu, under guidance of Dr. Zhang Zhang and Prof. Kaiqi Huang.
+# stack
 
-Weakly-supervised Pedestrian Attribute Localization Network (WPAL-network) is a Convolutional Neural Network (CNN) structure designed for recognizing attributes from objects as well as localizing them. Currently it is developed to recognize attributes from pedestrians only, using the Richly Annotated Pedestrian (RAP) database or PETA database.
+训练
+train_vgg   wpal_net.sh train_net.py  wpal_net/train.py
 
-## Installation
+测试
+test_vgg  test_net.py  wpal_net/test.py
 
-1. Clone this repository
+# attribute
 
-    ```Shell
-    # Make sure to clone with --recursive
-    git clone --recursive https://github.com/kyu-sz/Weakly-supervised-Pedestrian-Attribute-Localization-Network.git
-    ```
+model0 0~8    9
+性别
 
-2. Build Caffe and pycaffe
+1～3          
+年龄16
+年龄30
+年龄45
 
-	This project use python layers for input, etc. When building Caffe, set the WITH_PYTHON_LAYER option to true.
+4~6
+体型微胖
+体型标准
+体型偏瘦
 
-    ```Shell
-    WITH_PYTHON_LAYER=1 make all pycaffe -j 8
-    ```
+7~8              #skip this
+角色顾客
+角色制服
 
-3. Download the RAP database
+model1 9~14 6
+发型光头
+发型长发
 
-    To get the Richly Annotated Pedestrian (RAP) database, please visit rap.idealtest.org to learn about how to download a copy of it.
+头肩黑色头发
 
-    It should have two zip files.
+头肩戴帽
 
-    ```
-    $RAP/RAP_annotation.zip
-    $RAP/RAP_dataset.zip
-    ```
+头肩眼镜
 
-4. Unzip them both to the directory.
+头肩围巾
 
-    ```Shell
-    cd $RAP
-    unzip RAP_annotation.zip
-    unzip RAP_dataset.zip
-    ```
+model2 15~23  9
 
-5. Create symlinks for the RAP database
+上衣衬衣
+上衣毛衣
+上衣马甲
+上衣T恤
+上衣棉服
+上衣夹克
+上衣西服
+上衣卫衣
+上衣短袖
 
-    ```Shell
-    cd $WPAL_NET_ROOT/data/dataset/
-    ln -s $RAP RAP
-    ```
+model3 24~29  6
 
-## Usage
+下衣长裤
+下衣裙子
+下衣短裙
+下衣连衣裙
+下衣牛仔裤
+下衣包腿裤
 
-To train the model, first fetch a pretrained VGG_CNN_S model by:
-	
-```Shell
-./data/scripts/fetch_pretrained_vgg_cnn_s_model.sh
-```
+30～34  5
 
-Then run experiment script for training:
+鞋子类型皮鞋
+鞋子类型运动鞋
+鞋子类型靴子
+鞋子类型布鞋
+鞋子类型休闲鞋
 
-```Shell
-./experiments/example/VGG_CNN_S/train_vgg_s_rap_0.sh
-```
+model4 35~42    8
+附属物双肩包
+附属物单肩包
+附属物手提包
+附属物箱子
+附属物塑料袋
+附属物纸袋
+附属物车
+附属物其他
 
-Experiment script for testing is also available:
 
-```Shell
-./experiments/examples/VGG_CNN_S/test_vgg_s_rap.sh
-```
+43~50       8
+model5
+行为打手机
+行为交谈
+行为聚集
+行为抱东西
+行为推东西
+行为拉拽东西
+行为夹带东西
+行为拎东西
 
-## Acknowledgements
+model6
+51~54
 
-The project layout and some codes are derived from Mr. Ross Girshick's [py-faster-rcnn](https://github.com/rbgirshick/py-faster-rcnn).
+正面
+背面
+面向左侧
+面向右侧
 
-We use VGG_CNN_S as pretrained model. Information can be found on [Mr. K. Simonyan's Gist](https://gist.github.com/ksimonyan/fd8800eeb36e276cd6f9#file-readme-md). It is from the BMVC-2014 paper "Return of the Devil in the Details: Delving Deep into Convolutional Nets":
-	
-```
-Return of the Devil in the Details: Delving Deep into Convolutional Nets
-K. Chatfield, K. Simonyan, A. Vedaldi, A. Zisserman
-British Machine Vision Conference, 2014 (arXiv ref. cs1405.3531)
-```
+55～58
+左侧遮挡
+右侧遮挡
+上部遮挡
+下部遮挡
+
+59～62
+遮挡类型环境物
+遮挡类型附属物
+遮挡类型目标
+遮挡类型其他
+
+model7
+63~74         12
+
+上衣颜色黑
+上衣颜色白
+上衣颜色灰
+上衣颜色红
+上衣颜色绿
+上衣颜色蓝
+上衣颜色黄
+上衣颜色棕
+上衣颜色紫
+上衣颜色粉
+上衣颜色橙
+上衣颜色混色
+
+model8
+75~82     8
+下衣颜色黑
+下衣颜色白
+下衣颜色灰
+下衣颜色红
+下衣颜色绿
+下衣颜色蓝
+下衣颜色黄
+下衣颜色混色
+
+model9
+83~91     9
+鞋子颜色黑
+鞋子颜色白
+鞋子颜色灰
+鞋子颜色红
+鞋子颜色绿
+鞋子颜色蓝
+鞋子颜色黄
+鞋子颜色棕
+鞋子颜色混色

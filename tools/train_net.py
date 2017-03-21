@@ -3,19 +3,19 @@
 # --------------------------------------------------------------------
 # This file is part of
 # Weakly-supervised Pedestrian Attribute Localization Network.
-# 
+#
 # Weakly-supervised Pedestrian Attribute Localization Network
 # is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Weakly-supervised Pedestrian Attribute Localization Network
 # is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Weakly-supervised Pedestrian Attribute Localization Network.
 # If not, see <http://www.gnu.org/licenses/>.
@@ -31,6 +31,8 @@ import caffe
 from wpal_net.config import cfg, cfg_from_file, cfg_from_list
 from wpal_net.train import train_net
 
+ from caffe.proto import caffe_pb2
+ from google.protobuf import text_format
 
 def parse_args():
     """
@@ -46,6 +48,13 @@ def parse_args():
     parser.add_argument('--iters', dest='max_iters',
                         help='number of training iterations',
                         default=100000, type=int)
+    parser.add_argument('--start', dest='start',
+                        help='Attribute index',
+                        default=0, type=int)
+    parser.add_argument('--end', dest='end',
+                        help='Attribute index',
+                        default=92, type=int)
+
     parser.add_argument('--weights', dest='snapshot_path',
                         help='initialize with weights of a pretrained model or snapshot',
                         default=None, type=str)
@@ -108,14 +117,36 @@ if __name__ == '__main__':
         from utils.peta_db import PETA
         db = PETA(os.path.join('data', 'dataset',  args.db), args.par_set_id)
 
-    cfg.NUM_ATTR = db.num_attr
+#   here
+    num_attr=end-start
+    cfg.NUM_ATTR = num_attr
+    db.label_weight=db.label_weight[start:end]
+    db.labels=db.labels[:,start:end]
+    args.snapshot_path=args.snapshot_path+"/{}_{}".format(start,end)
 
+
+    prototxt_file=args.solver
+    n=caffe_pb2.NetParameter()
+    text_format.Merge(open(prototxt_file).read(), n)
+    n.layer[-2].inner_product_param.num_output
+    text_format.MessageToString(n)
+
+    try:
+        os.makedirs(args.solver+"_dir")
+    except:
+        pass
+    new_file=  args.solver+"_dir/{}_{}".format(start,end)
+
+    with open(new_file,'w+') as  new_prototxt_file:
+        prototxt_file.write(text_format.MessageToString(n))
+    args.solver=new_file
+#
     print 'Output will be saved to `{:s}`'.format(args.output_dir)
     try:
         os.makedirs(args.output_dir)
     except:
         pass
 
-    train_net(args.solver, db, os.path.join(args.output_dir, args.db),
-              snapshot_path=args.snapshot_path,
-              max_iters=args.max_iters)
+    # train_net(args.solver, db, os.path.join(args.output_dir, args.db),
+    #           snapshot_path=args.snapshot_path,
+    #           max_iters=args.max_iters)
