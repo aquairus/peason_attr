@@ -31,8 +31,8 @@ import caffe
 from wpal_net.config import cfg, cfg_from_file, cfg_from_list
 from wpal_net.train import train_net
 
- from caffe.proto import caffe_pb2
- from google.protobuf import text_format
+from caffe.proto import caffe_pb2
+from google.protobuf import text_format
 
 def parse_args():
     """
