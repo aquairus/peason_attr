@@ -147,13 +147,13 @@ if __name__ == '__main__':
 
     new_file=  new_dir+"/train_net_{}_{}.prototxt".format(start,end)
     with open(new_file,'w+') as  new_prototxt_file:
-        prototxt_file.write(text_format.MessageToString(n))
+        new_prototxt_file.write(text_format.MessageToString(n))
 
     solver.net=new_file
     new_solver=   new_dir+"/solver{}_{}.prototxt".format(start,end)
     # args.solver+"_dir/{}_{}".format(start,end)
     with open(new_solver,'w+') as  new_prototxt_file:
-        prototxt_file.write(text_format.MessageToString(n))
+        new_prototxt_file.write(text_format.MessageToString(n))
 
     args.solver=new_solver
 #
