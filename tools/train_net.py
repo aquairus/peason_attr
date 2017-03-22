@@ -138,18 +138,20 @@ if __name__ == '__main__':
     n.layer[-2].inner_product_param.num_output
     text_format.MessageToString(n)
 
+    new_dir=net_file.split(".")[0]+"_dir"
     try:
-        os.makedirs(args.solver+"_dir")
+        os.makedirs(new_dir)
     except:
         pass
 
 
-    new_file=  net_file+"_dir/{}_{}".format(start,end)
+    new_file=  new_dir+"/train_net_{}_{}.prototxt".format(start,end)
     with open(new_file,'w+') as  new_prototxt_file:
         prototxt_file.write(text_format.MessageToString(n))
 
     solver.net=new_file
-    new_solver=  args.solver+"_dir/{}_{}".format(start,end)
+    new_solver=   new_dir+"/solver{}_{}.prototxt".format(start,end)
+    # args.solver+"_dir/{}_{}".format(start,end)
     with open(new_solver,'w+') as  new_prototxt_file:
         prototxt_file.write(text_format.MessageToString(n))
 
