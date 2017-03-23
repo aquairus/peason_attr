@@ -118,17 +118,17 @@ if __name__ == '__main__':
     net_file=args.prototxt
     n=caffe_pb2.NetParameter()
     text_format.Merge(open(net_file).read(), n)
-    n.layer[-2].inner_product_param.num_output=num_attr
+    n.layer[-6].inner_product_param.num_output=num_attr
 
     new_dir=os.path.dirname(net_file)+"/train_net_dir"
-    # net_file.split(".")[0].replace("test","train")+"_dir"
     new_file=  new_dir+"/test_net_{}_{}.prototxt".format(start,end)
+
     with open(new_file,'w+') as  new_prototxt_file:
         new_prototxt_file.write(unicode(text_format.MessageToString(n)))
 
     args.prototxt=new_file
-    print args.prototxt
-    print num_attr
+    # print args.prototxt
+    # print num_attr
     time.sleep(10)
     net = caffe.Net(new_file, args.caffemodel, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(args.caffemodel))[0]
