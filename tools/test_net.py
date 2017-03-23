@@ -126,8 +126,8 @@ if __name__ == '__main__':
     with open(new_file,'w+') as  new_prototxt_file:
         new_prototxt_file.write(unicode(text_format.MessageToString(n)))
     args.prototxt=new_file
-
-    net = caffe.Net(args.prototxt, args.caffemodel, caffe.TEST)
+    print args.prototxt
+    net = caffe.Net(new_file, args.caffemodel, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(args.caffemodel))[0]
 
     if args.db == 'RAP':
