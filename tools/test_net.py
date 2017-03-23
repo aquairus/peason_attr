@@ -123,7 +123,7 @@ if __name__ == '__main__':
     new_dir=net_file.split(".")[0]+"_dir"
     new_file=  new_dir+"/test_net_{}_{}.prototxt".format(start,end)
     with open(new_file,'w+') as  new_prototxt_file:
-        new_prototxt_file.write(text_format.MessageToString(n))
+        new_prototxt_file.write(text_format.MessageToString(n).encode('utf8'))
     args.prototxt=new_file
 
     net = caffe.Net(args.prototxt, args.caffemodel, caffe.TEST)
