@@ -129,7 +129,7 @@ if __name__ == '__main__':
     args.prototxt=new_file
     # print args.prototxt
     # print num_attr
-    time.sleep(10)
+    # time.sleep(10)
     net = caffe.Net(new_file, args.caffemodel, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(args.caffemodel))[0]
 
@@ -146,4 +146,9 @@ if __name__ == '__main__':
     db.labels=db.labels[:,start:end]
 
     args.output_dir=args.output_dir+"/attr{}_{}".format(start,end)
+    try:
+        os.makedirs(args.output_dir)
+    except:
+        pass
+    
     test_net(net, db, args.output_dir)
