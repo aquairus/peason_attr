@@ -156,7 +156,7 @@ if __name__ == '__main__':
         new_prototxt_file.write(unicode(text_format.MessageToString(solver)))
 
     print type(args.solver)
-    args.solver=new_solver
+    args.solver=str(new_solver)
     print type(args.solver)
 #
     args.output_dir=args.output_dir+"/attr{}_{}".format(start,end)
