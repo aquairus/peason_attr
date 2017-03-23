@@ -153,7 +153,7 @@ if __name__ == '__main__':
     new_solver=   new_dir+"/solver{}_{}.prototxt".format(start,end)
     # args.solver+"_dir/{}_{}".format(start,end)
     with open(new_solver,'w+') as  new_prototxt_file:
-        new_prototxt_file.write(unicode(text_format.MessageToString(solver))
+        new_prototxt_file.write(unicode(text_format.MessageToString(solver)))
 
     args.solver=new_solver
 #
