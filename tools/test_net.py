@@ -150,5 +150,6 @@ if __name__ == '__main__':
         os.makedirs(args.output_dir)
     except:
         pass
+
     
     test_net(net, db, args.output_dir)
