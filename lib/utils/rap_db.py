@@ -43,12 +43,12 @@ class RAP:
         self._img_names = rap[0][0][5]
         self.attr_exp = rap[0][0][6]
 
-        self.attr_group = [range(1, 4), range(4, 7), range(7, 9)]
+        self.attr_group = []
+        ##range(1, 4), range(4, 7), range(7, 9)]
 
 #, range(9, 11), range(30, 36), ]
 
         self.flip_attr_pairs = [(54, 55)]
-
         self.expected_loc_centroids = np.ones(self.num_attr, dtype=int) * 2
         self.expected_loc_centroids[9:16] = 1
         self.expected_loc_centroids[35:43] = 1
