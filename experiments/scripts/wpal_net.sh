@@ -46,9 +46,11 @@ set +x
 NET_FINAL=`grep -B 1 "done solving" ${LOG} | grep "Wrote snapshot" | awk '{print $4}'`
 set -x
 
-# time ./tools/test_net.py --gpu ${GPU_ID} \
-#   --def models/${NET}/test_net.prototxt \
-#   --db ${DB}
-#   --setid ${DB_SET} \
-#   --net ${NET_FINAL} \
-#   ${EXTRA_ARGS}
+time ./tools/test_net.py --gpu ${GPU_ID} \
+  --def models/${NET}/test_net.prototxt \
+  --db ${DB}\
+  --start ${START}\
+  --end ${END} \
+  --setid ${DB_SET} \
+  --net ${NET_FINAL} \
+  ${EXTRA_ARGS}

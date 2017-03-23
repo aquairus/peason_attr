@@ -3,19 +3,19 @@
 # --------------------------------------------------------------------
 # This file is part of
 # Weakly-supervised Pedestrian Attribute Localization Network.
-# 
+#
 # Weakly-supervised Pedestrian Attribute Localization Network
 # is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Weakly-supervised Pedestrian Attribute Localization Network
 # is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Weakly-supervised Pedestrian Attribute Localization Network.
 # If not, see <http://www.gnu.org/licenses/>.
@@ -48,6 +48,12 @@ def parse_args():
     parser.add_argument('--net', dest='caffemodel',
                         help='model to test',
                         default=None, type=str)
+    parser.add_argument('--start', dest='start',
+                        help='Attribute index',
+                        default=0, type=int)
+    parser.add_argument('--end', dest='end',
+                        help='Attribute index',
+                        default=92, type=int)
     parser.add_argument('--cfg', dest='cfg_file',
                         help='optional cfg file', default=None, type=str)
     parser.add_argument('--wait', dest='wait',
@@ -102,6 +108,11 @@ if __name__ == '__main__':
         caffe.set_mode_gpu()
         caffe.set_device(args.gpu_id)
 
+
+    start=args.start
+    end=args.end
+    num_attr=end-start
+    
     net = caffe.Net(args.prototxt, args.caffemodel, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(args.caffemodel))[0]
 
@@ -113,5 +124,8 @@ if __name__ == '__main__':
         """Load PETA dayanse"""
         from utils.peta_db import PETA
         db = PETA(os.path.join('data', 'dataset', args.db), args.par_set_id)
+
+    db.label_weight=db.label_weight[start:end]
+    db.labels=db.labels[:,start:end]
 
     test_net(net, db, args.output_dir)

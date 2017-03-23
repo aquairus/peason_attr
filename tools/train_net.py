@@ -157,12 +157,13 @@ if __name__ == '__main__':
 
     args.solver=new_solver
 #
+    args.output_dir=args.output_dir+"/attr{}_{}".format(start,end)
     print 'Output will be saved to `{:s}`'.format(args.output_dir)
     try:
         os.makedirs(args.output_dir)
     except:
         pass
 
-    # train_net(args.solver, db, os.path.join(args.output_dir, args.db),
-    #           snapshot_path=args.snapshot_path,
-    #           max_iters=args.max_iters)
+    train_net(args.solver, db, os.path.join(args.output_dir, args.db),
+              snapshot_path=args.snapshot_path,
+              max_iters=args.max_iters)
