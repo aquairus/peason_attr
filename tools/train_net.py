@@ -122,21 +122,21 @@ if __name__ == '__main__':
     end=args.end
     num_attr=end-start
     cfg.NUM_ATTR = num_attr
+
     db.label_weight=db.label_weight[start:end]
     db.labels=db.labels[:,start:end]
-    args.snapshot_path=args.snapshot_path+"/{}_{}".format(start,end)
 
+    args.snapshot_path=args.snapshot_path+"/{}_{}".format(start,end)
 
     solver_file=args.solver
     solver=caffe_pb2.SolverParameter()
     text_format.Merge(open(solver_file).read(), solver)
 
-
     net_file=solver.net
     n=caffe_pb2.NetParameter()
     text_format.Merge(open(net_file).read(), n)
-    n.layer[-2].inner_product_param.num_output
-    text_format.MessageToString(n)
+    n.layer[-2].inner_product_param.num_output=num_attr
+    # text_format.MessageToString(n)
 
     new_dir=net_file.split(".")[0]+"_dir"
     try:
@@ -153,7 +153,7 @@ if __name__ == '__main__':
     new_solver=   new_dir+"/solver{}_{}.prototxt".format(start,end)
     # args.solver+"_dir/{}_{}".format(start,end)
     with open(new_solver,'w+') as  new_prototxt_file:
-        new_prototxt_file.write(text_format.MessageToString(n))
+        new_prototxt_file.write(text_format.MessageToString(solver))
 
     args.solver=new_solver
 #

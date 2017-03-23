@@ -32,7 +32,8 @@ import time
 import caffe
 from wpal_net.config import cfg, cfg_from_file, cfg_from_list
 from wpal_net.test import test_net
-
+from caffe.proto import caffe_pb2
+from google.protobuf import text_format
 
 def parse_args():
     """
@@ -112,7 +113,19 @@ if __name__ == '__main__':
     start=args.start
     end=args.end
     num_attr=end-start
-    
+
+
+    net_file=args.prototxt
+    n=caffe_pb2.NetParameter()
+    text_format.Merge(open(net_file).read(), n)
+    n.layer[-2].inner_product_param.num_output=num_attr
+
+    new_dir=net_file.split(".")[0]+"_dir"
+    new_file=  new_dir+"/test_net_{}_{}.prototxt".format(start,end)
+    with open(new_file,'w+') as  new_prototxt_file:
+        new_prototxt_file.write(text_format.MessageToString(n))
+    args.prototxt=new_file
+
     net = caffe.Net(args.prototxt, args.caffemodel, caffe.TEST)
     net.name = os.path.splitext(os.path.basename(args.caffemodel))[0]
 
@@ -128,4 +141,5 @@ if __name__ == '__main__':
     db.label_weight=db.label_weight[start:end]
     db.labels=db.labels[:,start:end]
 
+    args.output_dir=args.output_dir+"/attr{}_{}".format(start,end)
     test_net(net, db, args.output_dir)
