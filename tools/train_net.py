@@ -155,7 +155,9 @@ if __name__ == '__main__':
     with open(new_solver,'w+') as  new_prototxt_file:
         new_prototxt_file.write(unicode(text_format.MessageToString(solver)))
 
+    print type(args.solver)
     args.solver=new_solver
+    print type(args.solver)
 #
     args.output_dir=args.output_dir+"/attr{}_{}".format(start,end)
     print 'Output will be saved to `{:s}`'.format(args.output_dir)
