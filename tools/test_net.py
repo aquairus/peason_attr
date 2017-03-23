@@ -120,7 +120,7 @@ if __name__ == '__main__':
     text_format.Merge(open(net_file).read(), n)
     n.layer[-2].inner_product_param.num_output=num_attr
 
-    new_dir=os.path.dirname(net_file)+"_dir"
+    new_dir=os.path.dirname(net_file)+"/train_net_dir"
     # net_file.split(".")[0].replace("test","train")+"_dir"
     new_file=  new_dir+"/test_net_{}_{}.prototxt".format(start,end)
     with open(new_file,'w+') as  new_prototxt_file:
