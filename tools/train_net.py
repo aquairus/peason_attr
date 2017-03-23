@@ -126,7 +126,8 @@ if __name__ == '__main__':
     db.label_weight=db.label_weight[start:end]
     db.labels=db.labels[:,start:end]
 
-    args.snapshot_path=args.snapshot_path+"/{}_{}".format(start,end)
+    args.snapshot_path=args.snapshot_path
+    # +"/{}_{}".format(start,end)
 
     solver_file=args.solver
     solver=caffe_pb2.SolverParameter()

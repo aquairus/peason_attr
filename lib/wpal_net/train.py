@@ -106,7 +106,7 @@ def train_net(solver_prototxt, db, output_dir,
               snapshot_path=None, max_iters=40000):
     """Train a WMA network."""
     print solver_prototxt
-    # print 
+    # print
     sw = SolverWrapper(solver_prototxt, db, output_dir, cfg.TRAIN.DO_FLIP,
                        snapshot_path=snapshot_path)
 
