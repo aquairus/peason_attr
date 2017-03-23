@@ -144,6 +144,7 @@ if __name__ == '__main__':
 
     db.label_weight=db.label_weight[start:end]
     db.labels=db.labels[:,start:end]
+    db.num_attr=num_attr
 
     args.output_dir=args.output_dir+"/attr{}_{}".format(start,end)
     try:
@@ -151,5 +152,5 @@ if __name__ == '__main__':
     except:
         pass
 
-    
+
     test_net(net, db, args.output_dir)
