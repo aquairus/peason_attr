@@ -11,17 +11,15 @@ train_vgg   wpal_net.sh  train_net.py                   wpal_net/train.py    lay
 测试
 test_vgg  test_net.py  wpal_net/test.py
 
+
+
 #todo
 
 attribute group
 
-test
+test  ok
 
 recog
-
-连接
-
-
 
 
 # attribute

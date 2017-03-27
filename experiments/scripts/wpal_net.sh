@@ -25,7 +25,7 @@ len=${#array[@]}
 EXTRA_ARGS=${array[@]:7:$len}
 EXTRA_ARGS_SLUG=${EXTRA_ARGS// /_}
 
-ITERS=100
+ITERS=10000
 
 LOG="experiments/logs/wna_net_${NET}_${EXTRA_ARGS_SLUG}.txt.`date +'%Y-%m-%d_%H-%M-%S'`"
 exec &> >(tee -a "$LOG")

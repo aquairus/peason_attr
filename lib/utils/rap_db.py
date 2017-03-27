@@ -29,10 +29,11 @@ import evaluate
 from wpal_net.config import cfg
 
 class RAP:
-    def __init__(self, db_path, par_set_id):
+    def __init__(self, db_path, par_set_id,lazy=False):
         self._db_path = db_path
-
-        rap = sio.loadmat(osp.join(self._db_path, 'RAP_annotation', 'RAP_annotation.mat'))['RAP_annotation']
+        # self.lazy=
+        if not lazy:
+            rap = sio.loadmat(osp.join(self._db_path, 'RAP_annotation', 'RAP_annotation.mat'))['RAP_annotation']
 
         self._partition = rap[0][0][0]
         self.labels = rap[0][0][1]
@@ -43,8 +44,8 @@ class RAP:
         self._img_names = rap[0][0][5]
         self.attr_exp = rap[0][0][6]
 
-        self.attr_group = []
-        ##range(1, 4), range(4, 7), range(7, 9)]
+        self.attr_group = [range(1, 4)]
+        # range(1, 4), range(4, 7), range(7, 9)]
 
 #, range(9, 11), range(30, 36), ]
 

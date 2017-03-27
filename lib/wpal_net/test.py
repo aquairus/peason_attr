@@ -77,4 +77,3 @@ def test_net(net, db, output_dir):
             f.write('{}: {}\n'.format(db.attr_eng[i][0][0], accPerAttr[i]))
         f.write('mA: {}\n'.format(mA))
         f.write('Acc: {} \t Prec: {} \t Rec: {} \t F1: {}\n'.format(acc, prec, rec, f1))
-
