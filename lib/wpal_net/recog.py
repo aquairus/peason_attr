@@ -66,8 +66,8 @@ def _get_blobs(img, neglect):
 
 
 def _attr_group_norm(pred, group):
-    for i in group:
-        pred[i] = 1 if pred[i] == max(pred[group]) else 0
+    # for i in group:
+        # pred[i] = 1 if pred[i] == max(pred[group]) else 0
     return pred
 
 
