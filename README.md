@@ -25,7 +25,7 @@ recog
 # attribute
 
 model0 0~8    9
-性别
+性别 0
 
 1～3          
 年龄16
