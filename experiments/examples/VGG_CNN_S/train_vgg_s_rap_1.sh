@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 cd `dirname "${BASH_SOURCE[0]}"`/../../..
-./experiments/scripts/wpal_net.sh 2 VGG_S_MLL data/snapshots/VGG_S_MLL/1/vgg_s_mll_iter_45000.caffemodel RAP 1
+./experiments/scripts/wpal_net.sh 1 VGG_S_MLL_RAP data/pretrained/VGG_CNN_S.caffemodel   RAP 0 0 1 --set TRAIN.BATCH_SIZE 48
