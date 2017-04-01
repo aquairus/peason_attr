@@ -73,7 +73,7 @@ def test_net(net, db, output_dir):
 
     acc_file = os.path.join(output_dir, 'acc.txt')
     with open(acc_file, 'w') as f:
-        for i in xrange(min(db.num_attr, cfg.TEST.MAX_NUM_ATTR)):
+        for i in xrange(db.num_attr):  #min(, cfg.TEST.MAX_NUM_ATTR)
             f.write('{}: {}\n'.format(db.attr_eng[i][0][0], accPerAttr[i]))
         f.write('mA: {}\n'.format(mA))
         f.write('Acc: {} \t Prec: {} \t Rec: {} \t F1: {}\n'.format(acc, prec, rec, f1))
