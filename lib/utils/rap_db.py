@@ -66,13 +66,13 @@ class RAP:
         self.set_partition_set_id(par_set_id)
 
     def evaluate_mA(self, attr, inds):
-        cut_attr = [x[0:db.num_attr] for x in attr]
-        cut_gt = [x[0:db.num_attr] for x in self.labels[inds]]
+        cut_attr = [x[0:self.num_attr] for x in attr]
+        cut_gt = [x[0:self.num_attr] for x in self.labels[inds]]
         return evaluate.mA(cut_attr, cut_gt)
 
     def evaluate_example_based(self, attr, inds):
-        cut_attr = [x[0:db.num_attr] for x in attr]
-        cut_gt = [x[0:db.num_attr] for x in self.labels[inds]]
+        cut_attr = [x[0:self.num_attr] for x in attr]
+        cut_gt = [x[0:self.num_attr] for x in self.labels[inds]]
         return evaluate.example_based(cut_attr, cut_gt)
 
     def set_partition_set_id(self, par_set_id):
